@@ -3,15 +3,18 @@ package hh.dao.impl;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import hh.dao.AddressDao;
 import hh.model.Address;
 
+@Named
 public class AddressDaoImpl implements AddressDao<Address, Integer> {
-//    @Inject
-//    private EntityManager em;
+    @Inject
+    private EntityManager em;
 
     public void persist(Address entity) {
         // TODO Auto-generated method stub
@@ -35,11 +38,11 @@ public class AddressDaoImpl implements AddressDao<Address, Integer> {
 
     @SuppressWarnings("unchecked")
     public List<Address> findAll() {
-//        Query qry = em.createQuery("FROM Address");
-//        List <Address> ret = (List<Address>)qry.getResultList();
-//        
-//        return ret;
-        return null;
+        Query qry = em.createQuery("FROM Address");
+        List <Address> ret = (List<Address>)qry.getResultList();
+        
+        return ret;
+        //return null;
     }
 
     public void deleteAll() {

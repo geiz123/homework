@@ -1,18 +1,18 @@
 package hh.model;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import hh.bean.DbBean;
 
 @Entity
 @Table(name = "address")
-public class Address extends DbBean {
-    @Id
-    @Column(name = "addressid")
-    private Integer id;
+@AttributeOverride(name="id", column=@Column(name="addressid"))
+public class Address extends BaseEntity<Integer> {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5293987038403457348L;
 
     @Column(name = "street1")
     private String street1;
@@ -28,15 +28,6 @@ public class Address extends DbBean {
 
     @Column(name = "zipcode")
     private String zipCode;
-
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getStreet1() {
         return street1;

@@ -10,8 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public class GenericProducer {
-    @Produces
-    @PersistenceContext
-    private EntityManager em;
+//    @Produces
+//    @PersistenceContext
+//    private EntityManager em;
 
 }

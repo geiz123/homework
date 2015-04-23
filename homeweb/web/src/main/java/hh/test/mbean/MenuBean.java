@@ -29,14 +29,14 @@ public class MenuBean implements Serializable {
 
     @Inject
     private EntityManager em;
-    
+
     private List<Address> addresses;
-    
+
     @Inject
     private ServiceDao serviceDao;
-    
-//    @Inject 
-//    private AddressService addressService;
+
+    @Inject
+    private AddressService addressService;
 
     private DefaultMenuModel dMenu;
 
@@ -44,12 +44,16 @@ public class MenuBean implements Serializable {
     @PostConstruct
     public void init() {
         makeMenu();
-        
-        //setAddresses(addressService.findAll());
-        
+
+        try {
+            setAddresses(addressService.findAll());
+            System.out.println("oOoOoOoOoOoOoO");
+        } catch (Exception ex) {
+            System.out.println("xXxXxXxXxXxX");
+        }
         Query qry = em.createQuery("FROM Address");
         setAddresses(qry.getResultList());
-        
+
         System.out.println(MenuBean.class.getName() + ": init()");
     }
 

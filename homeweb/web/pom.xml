@@ -16,9 +16,13 @@
             <artifactId>db</artifactId>
         </dependency>
 
+        <!-- <dependency> -->
+        <!-- <groupId>javax.faces</groupId> -->
+        <!-- <artifactId>jsf-api</artifactId> -->
+        <!-- </dependency> -->
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
