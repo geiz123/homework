@@ -1,14 +1,16 @@
 package hh.dao;
 
-import hh.model.BaseEntity;
+import hh.entity.BaseEntity;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Stateless
 @Named("baseDao")
 public class BaseDao<T extends BaseEntity<ID>, ID> {
     @PersistenceContext
@@ -20,16 +22,16 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
         this.entityManager = entityManager;
     }
 
-    @SuppressWarnings("unchecked")
     public EntityManager getEntityManager() {
+        return entityManager;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Class<T> getEntityClass() {
         if (entityClass == null)
             // only works if one extends BaseDao, we will take care of it with CDI
             entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         
-        return entityManager;
-    }
-    
-    public Class<T> getEntityClass() {
         return entityClass;
     }
 

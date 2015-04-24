@@ -1,4 +1,4 @@
-package hh.model;
+package hh.entity;
 
 import hh.bean.DbBean;
 

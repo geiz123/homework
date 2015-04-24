@@ -1,4 +1,4 @@
-package hh.model;
+package hh.entity;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;

@@ -6,7 +6,7 @@ import javax.inject.Named;
 
 import hh.dao.AddressDao;
 import hh.dao.impl.AddressDaoImpl;
-import hh.model.Address;
+import hh.entity.Address;
 
 @Named
 public class AddressService {

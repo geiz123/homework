@@ -4,12 +4,13 @@
     <name>home parent pom</name>
     <groupId>hh</groupId>
     <artifactId>parent_pom</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <properties>
         <version.org.springframework>3.2.5</version.org.springframework>
-        <version.hh>1.0.0-SNAPSHOT</version.hh>
+        <version.hh>1.0.0</version.hh>
+        <version.hh.db>1.0.0</version.hh.db>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -17,7 +18,7 @@
             <dependency>
                 <groupId>hh</groupId>
                 <artifactId>db</artifactId>
-                <version>${version.hh}</version>
+                <version>${version.hh.db}</version>
             </dependency>
             <dependency>
                 <groupId>hh</groupId>
@@ -56,6 +57,13 @@
                 <groupId>javax.enterprise</groupId>
                 <artifactId>cdi-api</artifactId>
                 <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- EJB -->
+            <dependency>
+                <groupId>org.jboss.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+                <version>1.0.2.Final-redhat-2</version>
                 <scope>provided</scope>
             </dependency>
             <!-- JPA -->

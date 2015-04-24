@@ -1,15 +1,14 @@
 package hh.dao.impl;
 
+import hh.dao.AddressDao;
+import hh.entity.Address;
+
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import hh.dao.AddressDao;
-import hh.model.Address;
 
 @Named
 public class AddressDaoImpl implements AddressDao<Address, Integer> {

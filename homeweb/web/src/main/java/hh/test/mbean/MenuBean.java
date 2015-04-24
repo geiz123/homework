@@ -1,9 +1,9 @@
 package hh.test.mbean;
 
 import hh.bean.Service;
+import hh.dao.AddDao;
 import hh.dao.ServiceDao;
-import hh.model.Address;
-import hh.service.AddressService;
+import hh.entity.Address;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +15,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -27,32 +25,21 @@ import org.primefaces.model.menu.DefaultSubMenu;
 public class MenuBean implements Serializable {
     private static final long serialVersionUID = 175198413945959731L;
 
-    @Inject
-    private EntityManager em;
-
     private List<Address> addresses;
 
     @Inject
     private ServiceDao serviceDao;
 
     @Inject
-    private AddressService addressService;
+    private AddDao addDao;
 
     private DefaultMenuModel dMenu;
 
-    @SuppressWarnings("unchecked")
     @PostConstruct
     public void init() {
         makeMenu();
 
-        try {
-            setAddresses(addressService.findAll());
-            System.out.println("oOoOoOoOoOoOoO");
-        } catch (Exception ex) {
-            System.out.println("xXxXxXxXxXxX");
-        }
-        Query qry = em.createQuery("FROM Address");
-        setAddresses(qry.getResultList());
+        setAddresses(addDao.findAll());
 
         System.out.println(MenuBean.class.getName() + ": init()");
     }
@@ -83,8 +70,7 @@ public class MenuBean implements Serializable {
     }
 
     public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                summary, detail);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
@@ -102,6 +88,14 @@ public class MenuBean implements Serializable {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public AddDao getAddDao() {
+        return addDao;
+    }
+
+    public void setAddDao(AddDao addDao) {
+        this.addDao = addDao;
     }
 
 }
