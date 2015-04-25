@@ -6,12 +6,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-@Named("baseDao")
 public class BaseDao<T extends BaseEntity<ID>, ID> {
     @PersistenceContext
     private EntityManager entityManager;

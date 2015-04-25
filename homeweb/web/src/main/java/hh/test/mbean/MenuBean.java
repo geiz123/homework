@@ -1,7 +1,7 @@
 package hh.test.mbean;
 
 import hh.bean.Service;
-import hh.dao.AddDao;
+import hh.dao.AddressDao;
 import hh.dao.ServiceDao;
 import hh.entity.Address;
 
@@ -25,13 +25,13 @@ import org.primefaces.model.menu.DefaultSubMenu;
 public class MenuBean implements Serializable {
     private static final long serialVersionUID = 175198413945959731L;
 
-    private List<Address> addresses;
-
     @Inject
     private ServiceDao serviceDao;
 
     @Inject
-    private AddDao addDao;
+    private AddressDao addDao;
+    
+    private List<Address> addresses;
 
     private DefaultMenuModel dMenu;
 
@@ -90,11 +90,11 @@ public class MenuBean implements Serializable {
         this.addresses = addresses;
     }
 
-    public AddDao getAddDao() {
+    public AddressDao getAddDao() {
         return addDao;
     }
 
-    public void setAddDao(AddDao addDao) {
+    public void setAddDao(AddressDao addDao) {
         this.addDao = addDao;
     }
 

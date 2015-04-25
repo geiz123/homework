@@ -1,18 +1,10 @@
 package hh.dao;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.ejb.Stateless;
 
-public interface AddressDao<T, Id extends Serializable> {
-    public void persist(T entity);
+import hh.entity.Address;
 
-    public void update(T entity);
+@Stateless
+public class AddressDao extends BaseDao<Address, Integer> {
 
-    public T findById(Id id);
-
-    public void delete(T entity);
-
-    public List<T> findAll();
-
-    public void deleteAll();
 }
