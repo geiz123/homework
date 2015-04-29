@@ -1,39 +1,41 @@
 package hh.entity;
 
-import hh.bean.DbBean;
+import java.io.Serializable;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "person")
-public class Person extends DbBean{
-    
+@AttributeOverride(name="id", column=@Column(name="personid"))
+public class Person extends BaseEntity<Integer> implements Serializable{
+    private static final long serialVersionUID = -8791209533998520826L;
+
     @Column(name="firstname")
     private String firstName;
     
-    @Id
-    @Column(name="personid")
-    private Integer id;
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Address address;
     
-    public Integer getId() {
-        return id;
-    }
-    
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-        
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
 }

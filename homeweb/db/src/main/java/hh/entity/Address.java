@@ -1,17 +1,21 @@
 package hh.entity;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
 @AttributeOverride(name="id", column=@Column(name="addressid"))
-public class Address extends BaseEntity<Integer> {
-    /**
-     * 
-     */
+public class Address extends BaseEntity<Integer> implements Serializable {
     private static final long serialVersionUID = -5293987038403457348L;
 
     @Column(name = "street1")
@@ -29,6 +33,10 @@ public class Address extends BaseEntity<Integer> {
     @Column(name = "zipcode")
     private String zipCode;
 
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="addressid")
+    private Set<Person> persons;
+    
     public String getStreet1() {
         return street1;
     }
@@ -67,6 +75,14 @@ public class Address extends BaseEntity<Integer> {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Set<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Set<Person> persons) {
+        this.persons = persons;
     }
 
 }

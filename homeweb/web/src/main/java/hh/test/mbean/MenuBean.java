@@ -1,3 +1,7 @@
+/**
+ * We are not using CDI to do EL (@Named) because CDI does not have
+ * @ViewScoped or an equilvalent. 
+ */
 package hh.test.mbean;
 
 import hh.bean.Service;
@@ -20,7 +24,7 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 
-@ManagedBean(name = "menuBean")
+@ManagedBean
 @ViewScoped
 public class MenuBean implements Serializable {
     private static final long serialVersionUID = 175198413945959731L;

@@ -1,5 +1,6 @@
 package hh.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +9,12 @@ import java.util.Set;
 import hh.bean.Service;
 import hh.dao.ServiceDao;
 
-public class ServiceDaoImpl implements ServiceDao {
+public class ServiceDaoImpl implements ServiceDao, Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8222289056878850833L;
     private List<Service> listOfService;
     private HashMap<String, List<Service>> serviceMap;
 

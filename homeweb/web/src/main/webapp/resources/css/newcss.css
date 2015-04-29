@@ -20,3 +20,12 @@ and open the template in the editor.
 body {
     background-color: #FFFFFF;
 }
+
+/*fix but makes sub-sub menu off*/
+.ui-menu-list {
+   top: 25px !important;
+}
+
+.dumbpf ul.ui-menu-list {
+    top: -7px !important;
+}

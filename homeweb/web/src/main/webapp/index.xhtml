@@ -2,14 +2,14 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core"
     template="/WEB-INF/template.xhtml">
     <ui:define name="north">
         <h:outputStylesheet library="css" name="newcss.css" />
         <h:form>
             <p:menubar>
                 <p:submenu label="File" icon="ui-icon-document">
-                    <p:submenu label="New" icon="ui-icon-contact">
+                    <p:submenu styleClass="dumbpf" label="New"
+                        icon="ui-icon-contact">
                         <p:menuitem value="Project" url="#" />
                         <p:menuitem value="Other" url="#" />
                     </p:submenu>
@@ -26,7 +26,8 @@
 
                 <p:submenu label="Help" icon="ui-icon-help">
                     <p:menuitem value="Contents" url="#" />
-                    <p:submenu label="Search" icon="ui-icon-search">
+                    <p:submenu styleClass="dumbpf" label="Search"
+                        icon="ui-icon-search">
                         <p:submenu label="Text">
                             <p:menuitem value="Workspace" url="#" />
                         </p:submenu>
@@ -37,26 +38,44 @@
         </h:form>
     </ui:define>
     <ui:define name="center">
-        <p:dataTable var="address" value="#{menuBean.addresses}">
-            <p:column headerText="Id">
-                <h:outputText value="#{address.id}" />
-            </p:column>
-            <p:column headerText="Street1">
-                <h:outputText value="#{address.street1}" />
-            </p:column>
-            <p:column headerText="Street2">
-                <h:outputText value="#{address.street2}" />
-            </p:column>
-            <p:column headerText="City">
-                <h:outputText value="#{address.city}" />
-            </p:column>
-            <p:column headerText="State">
-                <h:outputText value="#{address.state}" />
-            </p:column>
-            <p:column headerText="Zip Code">
-                <h:outputText value="#{address.zipCode}" />
-            </p:column>
-        </p:dataTable>
+        <h:form>
+            <p:dataTable var="address" value="#{menuBean.addresses}">
+                <p:column style="width:16px">
+                    <p:rowToggler />
+                </p:column>
+                <p:column headerText="Id">
+                    <h:outputText value="#{address.id}" />
+                </p:column>
+                <p:column headerText="Street1">
+                    <h:outputText value="#{address.street1}" />
+                </p:column>
+                <p:column headerText="Street2">
+                    <h:outputText value="#{address.street2}" />
+                </p:column>
+                <p:column headerText="City">
+                    <h:outputText value="#{address.city}" />
+                </p:column>
+                <p:column headerText="State">
+                    <h:outputText value="#{address.state}" />
+                </p:column>
+                <p:column headerText="Zip Code">
+                    <h:outputText value="#{address.zipCode}" />
+                </p:column>
+                <p:rowExpansion>
+                    <p:dataTable var="person" value="#{address.persons}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{person.id}" />
+                        </p:column>
+                        <p:column headerText="f Name">
+                            <h:outputText value="#{person.firstName}" />
+                        </p:column>
+                        <p:column headerText="???">
+                            <h:outputText value="#{person.address.id}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
     </ui:define>
     <ui:define name="west">
         <h:form>
@@ -64,10 +83,10 @@
             <p:panelMenu model="#{menuBean.dMenu}" />
         </h:form>
     </ui:define>
-    <ui:define name="south">
-        <h:form>
-            <p:growl id="message" showDetail="true" />
-            <p:panelMenu model="#{menuBean.dMenu}" />
-        </h:form>
-    </ui:define>
+    <!--     <ui:define name="south"> -->
+    <!--                 <h:form> -->
+    <!--                     <p:growl id="message" showDetail="true" /> -->
+    <!--                     <p:panelMenu model="#{menuBean.dMenu}" /> -->
+    <!--                 </h:form> -->
+    <!--     </ui:define> -->
 </ui:composition>
