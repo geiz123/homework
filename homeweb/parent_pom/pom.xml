@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <version.org.springframework>3.2.5</version.org.springframework>
+        <version.org.springframework>4.1.6.RELEASE</version.org.springframework>
         <version.hh>1.0.0</version.hh>
         <version.hh.db>1.0.0</version.hh.db>
     </properties>
@@ -33,6 +33,18 @@
                 <version>1.2.16</version>
             </dependency>
 
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            
             <!-- JSF -->
             <dependency>
                 <groupId>javax.faces</groupId>
@@ -52,6 +64,7 @@
                 <version>2.1.19.1.Final-redhat-1</version>
                 <scope>provided</scope>
             </dependency>
+            
             <!-- CDI -->
             <dependency>
                 <groupId>javax.enterprise</groupId>
@@ -59,6 +72,7 @@
                 <version>1.2</version>
                 <scope>provided</scope>
             </dependency>
+            
             <!-- EJB -->
             <dependency>
                 <groupId>org.jboss.ejb</groupId>
@@ -66,7 +80,11 @@
                 <version>1.0.2.Final-redhat-2</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- JPA -->
+            
+            <!-- Hibernate -->
+            
+            
+            <!-- JPA/Hibernate -->
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -78,6 +96,7 @@
                 <artifactId>jboss-as-jpa-hibernate4</artifactId>
                 <version>7.2.0.Final-redhat-8</version>
             </dependency>
+            
             <!-- Primefaces -->
             <dependency>
                 <groupId>org.primefaces</groupId>

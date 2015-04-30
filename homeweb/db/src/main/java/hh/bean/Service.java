@@ -1,5 +1,9 @@
 package hh.bean;
 
+/**
+ * Need to replace or remove this.  It was for testing.
+ *
+ */
 public class Service {
     private int id;
     private String name;

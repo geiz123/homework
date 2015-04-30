@@ -9,6 +9,10 @@ import java.util.Set;
 import hh.bean.Service;
 import hh.dao.ServiceDao;
 
+/**
+ * Need to replace or remove this.  It was for testing.
+ *
+ */
 public class ServiceDaoImpl implements ServiceDao, Serializable {
 
     /**
