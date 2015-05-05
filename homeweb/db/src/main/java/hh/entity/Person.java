@@ -19,7 +19,7 @@ public class Person extends BaseEntity<Integer> implements Serializable{
     @Column(name="firstname")
     private String firstName;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Address address;
     
     public String getFirstName() {

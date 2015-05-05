@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,9 @@ public class Address extends BaseEntity<Integer> implements Serializable {
     @Column(name = "street1")
     private String street1;
 
+    // Lazy load this field
     @Column(name = "street2")
+    @Basic(fetch=FetchType.LAZY)
     private String street2;
 
     @Column(name = "city")
@@ -33,7 +36,7 @@ public class Address extends BaseEntity<Integer> implements Serializable {
     @Column(name = "zipcode")
     private String zipCode;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="addressid")
     private Set<Person> persons;
     
