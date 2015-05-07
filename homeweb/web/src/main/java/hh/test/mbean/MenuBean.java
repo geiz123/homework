@@ -6,10 +6,13 @@ package hh.test.mbean;
 
 import hh.bean.Service;
 import hh.dao.AddressDao;
+import hh.dao.PersonDao;
 import hh.dao.ServiceDao;
 import hh.entity.Address;
+import hh.entity.Person;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +37,9 @@ public class MenuBean implements Serializable {
 
     @Inject
     private AddressDao addDao;
+    
+    @Inject
+    private PersonDao personDao;
     
     private List<Address> addresses;
 
@@ -69,6 +75,20 @@ public class MenuBean implements Serializable {
 
     }
 
+    /**
+     * Testing JSF 2.0+ passing in parameters
+     * @param addId
+     * @return
+     */
+    public List<Person> getPersonFromAddId(Integer addId){
+        ArrayList<Person> ret = new ArrayList<Person>();
+        
+        ret.add(personDao.findById(1));
+        ret.add(personDao.findById(3));
+        
+        return ret;
+    }
+    
     public void sendMessage() {
         addMessage("Hello", "No idea who clicked");
     }
@@ -100,6 +120,14 @@ public class MenuBean implements Serializable {
 
     public void setAddDao(AddressDao addDao) {
         this.addDao = addDao;
+    }
+
+    public PersonDao getPersonDao() {
+        return personDao;
+    }
+
+    public void setPersonDao(PersonDao personDao) {
+        this.personDao = personDao;
     }
 
 }

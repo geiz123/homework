@@ -1,7 +1,7 @@
 package hh.entity;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
@@ -38,7 +38,7 @@ public class Address extends BaseEntity<Integer> implements Serializable {
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="addressid")
-    private Set<Person> persons;
+    private List<Person> persons;
     
     public String getStreet1() {
         return street1;
@@ -80,11 +80,11 @@ public class Address extends BaseEntity<Integer> implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public Set<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(Set<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 

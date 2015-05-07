@@ -45,8 +45,8 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
         return (T) this.entityManager.merge(entity);
     }
 
-    public T findById(ID id, Class<T> type) {
-        return (T) this.entityManager.find(type, id);
+    public T findById(ID id) {
+        return (T) this.entityManager.find(getEntityClass(), id);
     }
 
     public void delete(ID id, Class<T> type) {
