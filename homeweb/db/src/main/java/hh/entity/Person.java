@@ -19,6 +19,9 @@ public class Person extends BaseEntity<Integer> implements Serializable{
     @Column(name="firstname")
     private String firstName;
     
+    @Column(name="addressid")
+    private Integer addressId;
+    
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Address address;
     
@@ -36,6 +39,14 @@ public class Person extends BaseEntity<Integer> implements Serializable{
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
 }

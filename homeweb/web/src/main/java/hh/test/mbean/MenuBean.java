@@ -12,7 +12,6 @@ import hh.entity.Address;
 import hh.entity.Person;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -37,10 +36,10 @@ public class MenuBean implements Serializable {
 
     @Inject
     private AddressDao addDao;
-    
+
     @Inject
     private PersonDao personDao;
-    
+
     private List<Address> addresses;
 
     private DefaultMenuModel dMenu;
@@ -77,18 +76,21 @@ public class MenuBean implements Serializable {
 
     /**
      * Testing JSF 2.0+ passing in parameters
+     * 
      * @param addId
      * @return
      */
-    public List<Person> getPersonFromAddId(Integer addId){
-        ArrayList<Person> ret = new ArrayList<Person>();
-        
-        ret.add(personDao.findById(1));
-        ret.add(personDao.findById(3));
-        
-        return ret;
+    public List<Person> getPersonFromAddId(Integer addId) {
+        return personDao.getPersonByAddressId(addId);
+        // ArrayList<Person> ret = new ArrayList<Person>();
+        // Person p1 = new Person();
+        // p1.setId(22);
+        // p1.setFirstName("Henry");
+        // ret.add(p1);
+        //
+        // return ret;
     }
-    
+
     public void sendMessage() {
         addMessage("Hello", "No idea who clicked");
     }
