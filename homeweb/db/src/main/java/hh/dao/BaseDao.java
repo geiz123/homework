@@ -9,6 +9,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.ejb.HibernateEntityManager;
+
 @Stateless
 public class BaseDao<T extends BaseEntity<ID>, ID> {
     @PersistenceContext
@@ -23,13 +27,13 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
     public EntityManager getEntityManager() {
         return entityManager;
     }
-    
+
     @SuppressWarnings("unchecked")
     public Class<T> getEntityClass() {
         if (entityClass == null)
             // only works if one extends BaseDao, we will take care of it with CDI
             entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        
+
         return entityClass;
     }
 
@@ -56,7 +60,16 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
 
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return entityManager.createQuery("Select entity FROM "+getEntityClass().getSimpleName() +" entity").getResultList();
+        return entityManager.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity")
+                .getResultList();
+    }
+
+    public Number getCount() {
+        HibernateEntityManager hem = entityManager.unwrap(HibernateEntityManager.class);
+        Session session = hem.getSession();
+        Number ret = (Number) session.createCriteria(entityClass).setProjection(Projections.rowCount()).uniqueResult();
+
+        return ret;
     }
 
 }
