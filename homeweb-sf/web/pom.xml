@@ -43,7 +43,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>homeweb</finalName>
+        <finalName>homeweb-sf</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
