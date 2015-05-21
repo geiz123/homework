@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>home parent pom</name>
+    <groupId>hh</groupId>
+    <artifactId>parent_pom</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <version.org.springframework>4.1.6.RELEASE</version.org.springframework>
+        <version.hh>1.0.0</version.hh>
+        <version.hh.db>1.0.0</version.hh.db>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Home stuff -->
+            <dependency>
+                <groupId>hh</groupId>
+                <artifactId>db</artifactId>
+                <version>${version.hh.db}</version>
+            </dependency>
+            <dependency>
+                <groupId>hh</groupId>
+                <artifactId>web</artifactId>
+                <version>${version.hh}</version>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.16</version>
+            </dependency>
+
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            
+            <!-- JSF -->
+            <dependency>
+                <groupId>javax.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>2.2.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>2.2.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.faces</groupId>
+                <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                <version>2.1.19.1.Final-redhat-1</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <!-- CDI -->
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <!-- EJB -->
+            <dependency>
+                <groupId>org.jboss.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+                <version>1.0.2.Final-redhat-2</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>4.1.0.Final</version>
+				<scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>4.1.0.Final</version>
+				<scope>provided</scope>
+            </dependency>
+            
+            <!-- JPA/Hibernate -->
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>1.0.1.Final</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as.jpa.hibernate</groupId>
+                <artifactId>jboss-as-jpa-hibernate4</artifactId>
+                <version>7.2.0.Final-redhat-8</version>
+            </dependency>
+            
+            <!-- Primefaces -->
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.primefaces.themes</groupId>
+                <artifactId>all-themes</artifactId>
+                <version>1.0.10</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>
