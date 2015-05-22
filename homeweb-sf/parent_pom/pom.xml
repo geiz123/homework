@@ -9,8 +9,14 @@
 
     <properties>
         <version.org.springframework>4.1.6.RELEASE</version.org.springframework>
+
         <version.hh>1.0.0</version.hh>
         <version.hh.db>1.0.0</version.hh.db>
+
+        <!-- Test -->
+        <junit.version>4.11</junit.version>
+        <assertj.version>3.0.0</assertj.version>
+        <org.testng>6.7</org.testng>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -36,7 +42,42 @@
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
                 <version>${version.org.springframework}</version>
             </dependency>
             <dependency>
@@ -44,7 +85,7 @@
                 <artifactId>spring-web</artifactId>
                 <version>${version.org.springframework}</version>
             </dependency>
-            
+
             <!-- JSF -->
             <dependency>
                 <groupId>javax.faces</groupId>
@@ -64,7 +105,7 @@
                 <version>2.1.19.1.Final-redhat-1</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <!-- CDI -->
             <dependency>
                 <groupId>javax.enterprise</groupId>
@@ -72,7 +113,7 @@
                 <version>1.2</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <!-- EJB -->
             <dependency>
                 <groupId>org.jboss.ejb</groupId>
@@ -80,21 +121,21 @@
                 <version>1.0.2.Final-redhat-2</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <!-- Hibernate -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>4.1.0.Final</version>
-				<scope>provided</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>4.1.0.Final</version>
-				<scope>provided</scope>
+                <scope>provided</scope>
             </dependency>
-            
+
             <!-- JPA/Hibernate -->
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
@@ -107,7 +148,7 @@
                 <artifactId>jboss-as-jpa-hibernate4</artifactId>
                 <version>7.2.0.Final-redhat-8</version>
             </dependency>
-            
+
             <!-- Primefaces -->
             <dependency>
                 <groupId>org.primefaces</groupId>
@@ -120,6 +161,24 @@
                 <version>1.0.10</version>
             </dependency>
 
+            <!-- Testing -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org</groupId>
+                <artifactId>testng</artifactId>
+                <version>${org.testng}</version>
+            </dependency>
+            
+            <!-- H2 -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.3.168-redhat-2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

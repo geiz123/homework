@@ -1,13 +1,14 @@
 package hh.dao;
 
-import java.util.List;
-
 import hh.entity.Person;
 
-import javax.ejb.Stateless;
+import java.util.List;
+
 import javax.persistence.Query;
 
-@Stateless
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PersonDao extends BaseDao<Person, Integer> {
 
     @SuppressWarnings({ "unchecked" })

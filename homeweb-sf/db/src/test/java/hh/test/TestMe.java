@@ -1,0 +1,23 @@
+package hh.test;
+
+import hh.dao.PersonDao;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:test-app-context.xml" })
+public class TestMe {
+
+    @Autowired
+    private PersonDao personDao;
+    
+    @Test
+    public void testJob() {
+        personDao.findById(2);
+    }
+}

@@ -5,15 +5,15 @@ import hh.entity.BaseEntity;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.ejb.HibernateEntityManager;
+import org.springframework.stereotype.Repository;
 
-@Stateless
+@Repository
 public class BaseDao<T extends BaseEntity<ID>, ID> {
     @PersistenceContext
     private EntityManager entityManager;

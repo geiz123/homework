@@ -22,8 +22,8 @@ public class Person extends BaseEntity<Integer> implements Serializable{
     @Column(name="addressid")
     private Integer addressId;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private Address address;
+//    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//    private Address address;
     
     public String getFirstName() {
         return firstName;
@@ -33,13 +33,13 @@ public class Person extends BaseEntity<Integer> implements Serializable{
         this.firstName = firstName;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     public Integer getAddressId() {
         return addressId;
