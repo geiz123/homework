@@ -94,23 +94,7 @@ INSERT INTO PHONE
 INSERT INTO PHONE
    VALUES(18, 'W', '2086567103');
 
-
--- Insert persons
-INSERT INTO PERSON
-   VALUES(1, 'Fred', 'F', 'Flintstone', 'flintstonef', 'pebbles', 8);
-
-INSERT INTO PERSON
-   VALUES(2, 'Barney', 'B', 'Rubble', 'rubbleb', 'bambam', 9);
-
-INSERT INTO PERSON
-   VALUES(3, 'Joseph', '', 'Smith', 'smithj', 'kirtland', 10);
-
-INSERT INTO PERSON
-   VALUES(4, 'Emma', NULL, 'Smith', 'smithe', 'nauvoo', 10);
-
-    INSERT INTO PERSON
-   VALUES(5, 'Richard', NULL, 'Isa', 'asdf', 'asdf', 11);
-
+   
 -- Insert branches
 INSERT INTO BRANCH
    VALUES ('1', 'US Bank - Idaho Falls', '1');
@@ -127,6 +111,24 @@ INSERT INTO BRANCH
 INSERT INTO BRANCH
    VALUES('7', 'Bank of Kirtland','7');
 
+   
+-- Insert persons
+INSERT INTO PERSON
+   VALUES(1, 'Fred', 'F', 'Flintstone', 'flintstonef', 'pebbles', 8, 1);
+
+INSERT INTO PERSON
+   VALUES(2, 'Barney', 'B', 'Rubble', 'rubbleb', 'bambam', 9, 5);
+
+INSERT INTO PERSON
+   VALUES(3, 'Joseph', '', 'Smith', 'smithj', 'kirtland', 10, 5);
+
+INSERT INTO PERSON
+   VALUES(4, 'Emma', NULL, 'Smith', 'smithe', 'nauvoo', 10, 7);
+
+INSERT INTO PERSON
+   VALUES(5, 'Richard', NULL, 'Isa', 'asdf', 'asdf', 11, 7);
+   
+   
 -- Assign phones to persons
 INSERT INTO PERSONPHONE
    VALUES(1, 1);
@@ -163,3 +165,5 @@ INSERT INTO PERSONPHONE
 
 INSERT INTO PERSONPHONE
    VALUES(5, 11);
+
+COMMIT;
