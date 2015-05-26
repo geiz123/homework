@@ -22,9 +22,11 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     @Column(name = "branchid")
     private Integer branchId;
 
-    // cascade - https://howtoprogramwithjava.com/hibernate-manytoone-unidirectional-tutorial/
+    @Column(name = "addressid")
+    private Integer addressId;
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "addressid")
+    @JoinColumn(name = "addressid", insertable = false, updatable = false)
     private Address address;
 
     public String getFirstName() {
@@ -49,6 +51,14 @@ public class Person extends BaseEntity<Integer> implements Serializable {
 
     public void setBranchId(Integer branchId) {
         this.branchId = branchId;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
 }
