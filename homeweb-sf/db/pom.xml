@@ -58,12 +58,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- CDI -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-        </dependency>
-
         <!-- log4j -->
         <dependency>
             <groupId>log4j</groupId>

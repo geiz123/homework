@@ -1,6 +1,7 @@
 package hh.test;
 
 import hh.dao.PersonDao;
+import hh.entity.Person;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,8 @@ public class TestMe {
     
     @Test
     public void testJob() {
-        personDao.findById(2);
+        Person p = personDao.findById(2);
+        
+        System.out.println(p.getAddress().getId());
     }
 }
