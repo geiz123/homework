@@ -1,7 +1,11 @@
 package hh.test;
 
+import static org.junit.Assert.*;
+
 import hh.dao.PersonDao;
 import hh.entity.Person;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +19,30 @@ public class TestMe {
 
     @Autowired
     private PersonDao personDao;
-    
+
     @Test
-    public void testJob() {
-        Person p = personDao.findById(2);
+    public void testConnection() {
+        personDao.findById(2);
+
+    }
+
+    @Test
+    public void testGetByAddressID() {
+        List<Person> p = personDao.getPersonByAddressId(10);
+
+        assertEquals(2, p.size());
+    }
+
+    /*
+     * Test CRUD
+     */
+
+    @Test
+    public void testCreate() {
+        //Person p = new Person("John", "", "Doe", "jdoe", "jdoe123", 1, 10);
         
-        System.out.println(p.getAddress().getId());
+        //personDao.persist(p);
+        
+        
     }
 }

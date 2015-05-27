@@ -19,6 +19,18 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     @Column(name = "firstname")
     private String firstName;
 
+    @Column(name = "middlename")
+    private String middleName;
+
+    @Column(name = "lastname")
+    private String lastName;
+
+    @Column(name = "userid")
+    private String userId;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "branchid")
     private Integer branchId;
 
@@ -28,6 +40,16 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "addressid", insertable = false, updatable = false)
     private Address address;
+
+    public Person(String firstName, String middleName, String lastName, String userId, String password, Integer branchId, Integer addressId) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.userId = userId;
+        this.password = password;
+        this.branchId = branchId;
+        this.addressId = addressId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -59,6 +81,38 @@ public class Person extends BaseEntity<Integer> implements Serializable {
 
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
