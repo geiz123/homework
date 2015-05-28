@@ -7,31 +7,30 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.ejb.HibernateEntityManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class BaseDao<T extends BaseEntity<ID>, ID> {
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
     protected Class<T> entityClass;
 
     public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        this.em = entityManager;
     }
 
     public EntityManager getEntityManager() {
-        return entityManager;
+        return em;
     }
 
     @SuppressWarnings("unchecked")
     public Class<T> getEntityClass() {
         if (entityClass == null)
-            // only works if one extends BaseDao, we will take care of it with CDI
+            // only works if one extends BaseDao
             entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
         return entityClass;
@@ -41,35 +40,68 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
         this.entityClass = entityClass;
     }
 
+    @Transactional
     public void persist(T entity) {
-        this.entityManager.persist(entity);
+        this.em.persist(entity);
     }
 
+    @Transactional
     public T update(T entity) {
-        return (T) this.entityManager.merge(entity);
+        return (T) this.em.merge(entity);
     }
 
     public T findById(ID id) {
-        return (T) this.entityManager.find(getEntityClass(), id);
+        return (T) this.em.find(getEntityClass(), id);
     }
 
+    @Transactional
     public void delete(ID id, Class<T> type) {
-        Object ref = this.entityManager.getReference(type, id);
-        this.entityManager.remove(ref);
+        Object ref = this.em.getReference(type, id);
+        this.em.remove(ref);
+    }
+
+    @Transactional
+    public void deleteById(ID id) {
+        // Why getReference instead of find
+        // http://stackoverflow.com/questions/5482141/what-is-the-difference-between-entitymanager-find-and-entitymanger-getreferenc
+        T ref = this.em.getReference(getEntityClass(), id);
+        this.em.remove(ref);
+    }
+
+    /**
+     * TODO: Need to find out if this will delete relations too
+     * 
+     * @param entity
+     */
+    @Transactional
+    public void deleteByEntity(T entity) {
+        // Why we need to merge before delete
+        // http://stackoverflow.com/questions/16086822/when-using-jpa-entitymanager-why-do-you-have-to-merge-before-you-remove
+
+        if (em.contains(entity))
+            em.remove(entity);
+        else {
+            T e = em.getReference(getEntityClass(), entity.getId());
+            em.remove(em.merge(e));
+        }
     }
 
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return entityManager.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity")
-                .getResultList();
+        return em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity").getResultList();
     }
 
     public Number getCount() {
-        HibernateEntityManager hem = entityManager.unwrap(HibernateEntityManager.class);
-        Session session = hem.getSession();
-        Number ret = (Number) session.createCriteria(entityClass).setProjection(Projections.rowCount()).uniqueResult();
-
-        return ret;
+        // HibernateEntityManager hem = em.unwrap(HibernateEntityManager.class);
+        // Session session = hem.getSession();
+        // Number ret = (Number) session.createCriteria(entityClass).setProjection(Projections.rowCount()).uniqueResult();
+        //
+        // return ret;
+        
+        String queryString = "SELECT Count(*) FROM " + getEntityClass().getSimpleName();  
+        Query query = em.createNativeQuery(queryString); 
+        
+        return (Number) query.getSingleResult();
     }
 
 }

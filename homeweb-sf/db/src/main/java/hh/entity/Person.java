@@ -41,6 +41,10 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     @JoinColumn(name = "addressid", insertable = false, updatable = false)
     private Address address;
 
+    public Person () {
+        
+    }
+    
     public Person(String firstName, String middleName, String lastName, String userId, String password, Integer branchId, Integer addressId) {
         this.firstName = firstName;
         this.middleName = middleName;
