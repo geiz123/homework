@@ -1,5 +1,12 @@
 package hh.dao;
 
+/**
+ * Base Dao.  Should be used when you just need to get an entity and don't need to write
+ * a Dao for it.
+ * ex: @Autowired
+ *     private BaseDao<Person, Integer> baseDao;
+ */
+
 import hh.entity.BaseEntity;
 
 import java.lang.reflect.ParameterizedType;
@@ -19,6 +26,15 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
 
     protected Class<T> entityClass;
 
+    public BaseDao () {
+        
+        // This will only work if BaseDao is an abstract class because the generics are
+        // "substituted", but if it is not an abstract then the generics are "sub" when contructor
+        // is called
+        // ParameterizedType genericSuperClass = ((ParameterizedType) getClass().getGenericSuperclass());
+        // entityClass = (Class<T>) genericSuperClass.getActualTypeArguments()[0];
+    }
+    
     public void setEntityManager(EntityManager entityManager) {
         this.em = entityManager;
     }
@@ -31,7 +47,7 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
     public Class<T> getEntityClass() {
         if (entityClass == null)
             // only works if one extends BaseDao
-            entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            setEntityClass((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 
         return entityClass;
     }

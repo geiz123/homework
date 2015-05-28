@@ -32,6 +32,7 @@ public class TestMe {
     @Test
     public void testConnection() {
         personDao.findById(2);
+
     }
 
     @Test
@@ -46,7 +47,7 @@ public class TestMe {
     public void testGetCount() {
         assertEquals(personDao.getCount(), new BigInteger("5"));
     }
-    
+
     @Test
     public void testCreate() {
         personDao.persist(p);
