@@ -7,6 +7,12 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -24,4 +30,44 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+    <!-- Add Support for Spring -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- Filter to open an EntityManager when web needs it -->
+    <!-- 
+    The filter intercepts a servlet request
+    The filter opens an EntityManager and binds it to the current thread
+    Web controller is called
+    Web controller calls service
+    Transaction interceptor begins a new transaction, retrieves the thread-bound EntityManager and binds it to the transaction
+    Service is called, does some stuff with EntityManager, then returns
+    Transaction interceptor flushes the EntityManager then commits the transaction
+    Web controller prepares view, then returns
+    View is built
+    Filter closes the EntityManager and unbinds it from current thread
+     -->
+    <filter>
+        <filter-name>
+            OpenEntityManagerInViewFilter
+        </filter-name>
+        <filter-class>
+            org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
+        </filter-class>
+        <init-param>
+            <param-name>entityManagerFactoryBeanName</param-name>
+            <param-value>entityManagerFactory</param-value>
+        </init-param>
+        <init-param>
+            <param-name>flushMode</param-name>
+            <param-value>AUTO</param-value>
+        </init-param>
+    </filter>
+    <!-- Include this if you are using Hibernate -->
+    <filter-mapping>
+        <filter-name>OpenEntityManagerInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

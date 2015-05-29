@@ -1,12 +1,14 @@
 package hh.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,8 +34,8 @@ public class Address extends BaseEntity<Integer> implements Serializable {
     @Column(name = "zipcode")
     private String zipCode;
 
-//    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-//    private List<Person> persons;
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="address")
+    private List<Person> persons;
     
     public String getStreet1() {
         return street1;
@@ -75,12 +77,12 @@ public class Address extends BaseEntity<Integer> implements Serializable {
         this.zipCode = zipCode;
     }
 
-//    public List<Person> getPersons() {
-//        return persons;
-//    }
-//
-//    public void setPersons(List<Person> persons) {
-//        this.persons = persons;
-//    }
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
 
 }

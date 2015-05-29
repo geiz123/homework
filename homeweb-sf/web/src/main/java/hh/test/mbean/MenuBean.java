@@ -18,9 +18,9 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -31,13 +31,13 @@ import org.primefaces.model.menu.DefaultSubMenu;
 public class MenuBean implements Serializable {
     private static final long serialVersionUID = 175198413945959731L;
 
-    @Inject
+    @ManagedProperty("#{serviceDaoImpl}")
     private ServiceDao serviceDao;
 
-    @Inject
+    @ManagedProperty("#{addressDao}")
     private AddressDao addDao;
 
-    @Inject
+    @ManagedProperty("#{personDao}")
     private PersonDao personDao;
 
     private List<Address> addresses;
@@ -47,7 +47,7 @@ public class MenuBean implements Serializable {
     @PostConstruct
     public void init() {
         makeMenu();
-
+        
         setAddresses(addDao.findAll());
 
         System.out.println(MenuBean.class.getName() + ": init()");
@@ -130,6 +130,14 @@ public class MenuBean implements Serializable {
 
     public void setPersonDao(PersonDao personDao) {
         this.personDao = personDao;
+    }
+
+    public ServiceDao getServiceDao() {
+        return serviceDao;
+    }
+
+    public void setServiceDao(ServiceDao serviceDao) {
+        this.serviceDao = serviceDao;
     }
 
 }

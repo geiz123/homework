@@ -37,7 +37,7 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     @Column(name = "addressid")
     private Integer addressId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "addressid", insertable = false, updatable = false)
     private Address address;
 

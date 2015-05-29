@@ -4,24 +4,28 @@
     xsi:schemaLocation="
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="homewebPersistence">
-        <jta-data-source>java:jboss/datasources/h2home</jta-data-source>
+        
+    <!-- Why JTA/RESOURCE_LOCAL http://stackoverflow.com/questions/10117687/jboss-as-7-cannot-inject-resource-local-container-managed-entitymanagers-using -->
+    <!-- Our EntityManager is null when transaction-type is JTA, need to find out why! -->
+    <persistence-unit name="homewebPersistence" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <!-- Scan for classes with @Entity -->
-        <jar-file>lib/db-1.0.0.jar</jar-file>
-
-        <!-- This is not required, but can help when testing or when the 
-            Entity classes are located in a different jar than the jar containing the 
-            persistence.xml file. -->
-        <!-- <class>hh.entity.Person</class> -->
-        <!-- <class>hh.entity.Address</class> -->
+        <!-- We are using RESOURCE_LOCAL with dataSource defined in Spring config -->
+        <!-- <jta-data-source>java:jboss/datasources/h2home</jta-data-source> -->
+    
+        <!-- NOT WORKING... Scan for classes with @Entity -->
+        <!-- <jar-file>../WEB-INF/lib/db-1.0.0.jar</jar-file> -->
+    
+        <!-- This is not required, but can help when testing or when the Entity classes are located in a different jar than the jar containing the persistence.xml file. -->
+        <class>hh.entity.Person</class>
+        <class>hh.entity.Address</class>
 
         <properties>
             <!-- Properties for Hibernate -->
-            <!-- THIS WILL FREAKING DROP YOUR TABLES! <property name="hibernate.hbm2ddl.auto" 
-                value="create-drop" /> -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <!-- THIS WILL FREAKING DROP YOUR TABLES! <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
             <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
         </properties>
     </persistence-unit>
 </persistence>

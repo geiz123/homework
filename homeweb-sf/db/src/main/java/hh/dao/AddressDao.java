@@ -1,10 +1,10 @@
 package hh.dao;
 
-import javax.ejb.Stateless;
-
 import hh.entity.Address;
 
-@Stateless
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class AddressDao extends BaseDao<Address, Integer> {
 
 }

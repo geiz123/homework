@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class BaseDao<T extends BaseEntity<ID>, ID> {
-    @PersistenceContext
     private EntityManager em;
 
     protected Class<T> entityClass;
@@ -35,6 +34,7 @@ public class BaseDao<T extends BaseEntity<ID>, ID> {
         // entityClass = (Class<T>) genericSuperClass.getActualTypeArguments()[0];
     }
     
+    @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
         this.em = entityManager;
     }

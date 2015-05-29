@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import hh.bean.Service;
 import hh.dao.ServiceDao;
 
@@ -13,11 +15,9 @@ import hh.dao.ServiceDao;
  * Need to replace or remove this.  It was for testing.
  *
  */
+@Repository
 public class ServiceDaoImpl implements ServiceDao, Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 8222289056878850833L;
     private List<Service> listOfService;
     private HashMap<String, List<Service>> serviceMap;

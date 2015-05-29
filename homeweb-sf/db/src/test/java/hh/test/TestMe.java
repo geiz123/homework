@@ -7,11 +7,12 @@ import hh.entity.Person;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:test-app-context.xml" })
 public class TestMe {
 
-    @Autowired
+    @Inject
     private PersonDao personDao;
 
     private Person p;
