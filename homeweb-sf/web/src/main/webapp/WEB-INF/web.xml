@@ -56,14 +56,6 @@
         <filter-class>
             org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
         </filter-class>
-        <init-param>
-            <param-name>entityManagerFactoryBeanName</param-name>
-            <param-value>entityManagerFactory</param-value>
-        </init-param>
-        <init-param>
-            <param-name>flushMode</param-name>
-            <param-value>AUTO</param-value>
-        </init-param>
     </filter>
     <!-- Include this if you are using Hibernate -->
     <filter-mapping>
