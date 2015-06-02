@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Test Getting Person's Address with JSF 2.0</title>
+    <title>Test Getting Person's Address In One Go...</title>
     <f:facet name="first">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type"
@@ -19,9 +19,6 @@
     <h:outputStylesheet library="css" name="newcss.css" />
     <h:form>
         <p:dataTable var="address" value="#{menuBean.addresses}">
-            <p:column style="width:16px">
-                <p:rowToggler />
-            </p:column>
             <p:column headerText="Id">
                 <h:outputText value="#{address.id}" />
             </p:column>
@@ -30,17 +27,13 @@
                 <h:outputText value="#{address.city}" />
             </p:column>
 
-            <p:rowExpansion>
-                <p:dataTable var="person"
-                    value="#{menuBean.getPersonFromAddId(address.id)}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{person.id}" />
-                    </p:column>
-                    <p:column headerText="f Name">
-                        <h:outputText value="#{person.firstName}" />
+            <p:column headerText="Persons">
+                <p:dataTable var="p" value="#{address.persons}">
+                    <p:column headerText="FirstName">
+                        <h:outputText value="#{p.firstName}" />
                     </p:column>
                 </p:dataTable>
-            </p:rowExpansion>
+            </p:column>
         </p:dataTable>
     </h:form>
 </h:body>
