@@ -1,18 +1,22 @@
 package hh.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "person")
-@AttributeOverride(name = "id", column = @Column(name = "personid"))
+@AttributeOverride(name = "id",
+                   column = @Column(name = "personid"))
 public class Person extends BaseEntity<Integer> implements Serializable {
     private static final long serialVersionUID = -8791209533998520826L;
 
@@ -38,13 +42,21 @@ public class Person extends BaseEntity<Integer> implements Serializable {
     private Integer addressId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "addressid", insertable = false, updatable = false)
+    @JoinColumn(name = "addressid",
+                insertable = false,
+                updatable = false)
     private Address address;
 
-    public Person () {
-        
+    @OneToMany
+    @JoinTable(name = "personphone",
+               joinColumns = @JoinColumn(name = "personid"),
+               inverseJoinColumns = @JoinColumn(name = "phoneid"))
+    private List<Phone> phones;
+
+    public Person() {
+
     }
-    
+
     public Person(String firstName, String middleName, String lastName, String userId, String password, Integer branchId, Integer addressId) {
         this.firstName = firstName;
         this.middleName = middleName;
@@ -117,6 +129,14 @@ public class Person extends BaseEntity<Integer> implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 
 }

@@ -7,6 +7,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>hh.entity.Person</class>
         <class>hh.entity.Address</class>
+        <class>hh.entity.Phone</class>
 
         <!-- ??? -->
         <!-- <shared-cache-mode>ALL</shared-cache-mode> -->

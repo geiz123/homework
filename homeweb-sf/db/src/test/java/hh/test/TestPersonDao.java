@@ -14,11 +14,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:test-app-context.xml" })
-public class TestMe {
+@TransactionConfiguration
+@Transactional
+public class TestPersonDao extends AbstractTransactionalJUnit4SpringContextTests{
 
     @Inject
     private PersonDao personDao;
@@ -56,6 +61,13 @@ public class TestMe {
         assertEquals(personDao.getCount(), new BigInteger("6"));
     }
 
+    @Test
+    public void testGetPhones() {
+        Person pp = personDao.findById(5);
+        
+        assertEquals(2, pp.getPhones().size());
+    }
+    
     @After
     public void breakUp() {
         p = null;
