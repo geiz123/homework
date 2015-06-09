@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "address")
 @AttributeOverride(name="id", column=@Column(name="addressid"))
-public class Address extends BaseEntity<Integer> implements Serializable {
+public class Address extends BaseIdEntity<Integer> implements Serializable {
     private static final long serialVersionUID = -5293987038403457348L;
 
     @Column(name = "street1")

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "person")
 @AttributeOverride(name = "id",
                    column = @Column(name = "personid"))
-public class Person extends BaseEntity<Integer> implements Serializable {
+public class Person extends BaseIdEntity<Integer> implements Serializable {
     private static final long serialVersionUID = -8791209533998520826L;
 
     @Column(name = "firstname")
@@ -52,6 +52,14 @@ public class Person extends BaseEntity<Integer> implements Serializable {
                joinColumns = @JoinColumn(name = "personid"),
                inverseJoinColumns = @JoinColumn(name = "phoneid"))
     private List<Phone> phones;
+
+    // @ElementCollection(targetClass=PetCollection.class)
+    // @CollectionTable(name="pet",
+    // joinColumns=@JoinColumn(name="personid"))
+
+    @OneToMany
+    @JoinColumn(name = "personid")
+    List<Pet> pets;
 
     public Person() {
 
@@ -137,6 +145,14 @@ public class Person extends BaseEntity<Integer> implements Serializable {
 
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 
 }

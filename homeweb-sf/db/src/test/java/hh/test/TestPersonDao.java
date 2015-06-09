@@ -1,8 +1,9 @@
 package hh.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import hh.dao.PersonDao;
 import hh.entity.Person;
+import hh.entity.Pet;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -16,14 +17,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:test-app-context.xml" })
-@TransactionConfiguration
-@Transactional
-public class TestPersonDao extends AbstractTransactionalJUnit4SpringContextTests{
+public class TestPersonDao extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Inject
     private PersonDao personDao;
@@ -64,10 +61,34 @@ public class TestPersonDao extends AbstractTransactionalJUnit4SpringContextTests
     @Test
     public void testGetPhones() {
         Person pp = personDao.findById(5);
-        
+
         assertEquals(2, pp.getPhones().size());
     }
-    
+
+    @Test
+    public void testGetPet() {
+        Person pp = personDao.findById(1);
+
+        // List<PetCollection> pets = pp.getPets();
+        //
+        // PetCollection pet1 = pets.get(0);
+        // PetCollection pet2 = pets.get(1);
+        //
+        // for (PetCollection p : pets) {
+        // System.out.println("### " + p.getDateOfBirth());
+        // }
+        
+        List<Pet> pets = pp.getPets();
+        Pet pet1 = pets.get(0);
+        Pet pet2 = pets.get(1);
+        
+        for (Pet p : pets) {
+            System.out.println("### " + p.getId().getDateOfBirth());
+        }
+        
+        assertTrue(!pet1.equals(pet2));
+    }
+
     @After
     public void breakUp() {
         p = null;

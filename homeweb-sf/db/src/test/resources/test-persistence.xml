@@ -5,9 +5,11 @@
     version="2.0">
     <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        
         <class>hh.entity.Person</class>
         <class>hh.entity.Address</class>
         <class>hh.entity.Phone</class>
+        <class>hh.entity.Pet</class>
 
         <!-- ??? -->
         <!-- <shared-cache-mode>ALL</shared-cache-mode> -->

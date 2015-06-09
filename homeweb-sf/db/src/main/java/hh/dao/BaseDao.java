@@ -7,7 +7,7 @@ package hh.dao;
  *     private BaseDao<Person, Integer> baseDao;
  */
 
-import hh.entity.BaseEntity;
+import hh.entity.BaseIdEntity;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class BaseDao<T extends BaseEntity<ID>, ID> {
+public class BaseDao<T extends BaseIdEntity<ID>, ID> {
     private EntityManager em;
 
     protected Class<T> entityClass;
