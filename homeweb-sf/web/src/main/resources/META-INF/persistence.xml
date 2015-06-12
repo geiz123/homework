@@ -19,6 +19,8 @@
         <!-- This is not required, but can help when testing or when the Entity classes are located in a different jar than the jar containing the persistence.xml file. -->
         <class>hh.entity.Person</class>
         <class>hh.entity.Address</class>
+        <class>hh.entity.Phone</class>
+        <class>hh.entity.Pet</class>
 
         <properties>
             <!-- Properties for Hibernate -->

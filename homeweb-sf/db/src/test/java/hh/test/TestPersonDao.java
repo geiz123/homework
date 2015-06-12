@@ -77,16 +77,30 @@ public class TestPersonDao extends AbstractTransactionalJUnit4SpringContextTests
         // for (PetCollection p : pets) {
         // System.out.println("### " + p.getDateOfBirth());
         // }
-        
+
         List<Pet> pets = pp.getPets();
         Pet pet1 = pets.get(0);
         Pet pet2 = pets.get(1);
-        
+
         for (Pet p : pets) {
             System.out.println("### " + p.getId().getDateOfBirth());
         }
-        
+
         assertTrue(!pet1.equals(pet2));
+    }
+
+    @Test
+    public void testGetPersonByAddressId() {
+        List<Person> persons = personDao.getPersonByAddressId(10);
+
+        for (Person p : persons) {
+            System.out.println("## " + p.getFirstName());
+
+            List<Pet> pets = p.getPets();
+            for (Pet pp : pets) {
+                System.out.println("### " + pp.getId().getPetName());
+            }
+        }
     }
 
     @After

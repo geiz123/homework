@@ -58,7 +58,8 @@ public class Person extends BaseIdEntity<Integer> implements Serializable {
     // joinColumns=@JoinColumn(name="personid"))
 
     @OneToMany
-    @JoinColumn(name = "personid")
+    @JoinColumn(name = "personid",
+                referencedColumnName = "personid")
     List<Pet> pets;
 
     public Person() {

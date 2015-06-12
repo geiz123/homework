@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class BaseDao<T extends BaseIdEntity<ID>, ID> {
-    private EntityManager em;
+    protected EntityManager em;
 
     protected Class<T> entityClass;
 

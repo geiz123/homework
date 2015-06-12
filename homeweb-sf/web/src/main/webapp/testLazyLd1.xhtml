@@ -31,6 +31,14 @@
                 <p:dataTable var="p" value="#{address.persons}">
                     <p:column headerText="FirstName">
                         <h:outputText value="#{p.firstName}" />
+                        <p:dataTable var="pp" value="#{p.pets}">
+                            <p:column headerText="Pet Name">
+                                <h:outputText value="#{pp.id.petName}" />
+                            </p:column>
+                            <p:column headerText="Pet DoB">
+                                <h:outputText value="#{pp.id.dateOfBirth}" />
+                            </p:column>
+                        </p:dataTable>
                     </p:column>
                 </p:dataTable>
             </p:column>

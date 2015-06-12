@@ -1,7 +1,7 @@
 package hh.bean;
 
 /**
- * Need to replace or remove this.  It was for testing.
+ * Need to replace or remove this. It was for testing.
  *
  */
 public class Service {
@@ -32,5 +32,4 @@ public class Service {
     public void setName(String name) {
         this.name = name;
     }
-
 }

@@ -1,26 +1,45 @@
 package hh.view;
 
-import javax.faces.application.FacesMessage;
+import java.io.Serializable;
+
+import hh.entity.Person;
+import hh.view.data.LazyPersonDataModel;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped;
  
 @ManagedBean
-public class MenuView {
-     
-    public void save() {
-        addMessage("Success", "Data saved");
+@ViewScoped
+public class MenuView implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+
+    private LazyPersonDataModel lazyModel;
+    
+    private Person selectedPerson;
+    
+    @PostConstruct
+    public void init() {
+        lazyModel = new LazyPersonDataModel();
     }
-     
-    public void update() {
-        addMessage("Success", "Data updated");
+    
+    public LazyPersonDataModel getLazyModel() {
+        if (lazyModel == null)
+            lazyModel = new LazyPersonDataModel();
+        
+        return lazyModel;
     }
-     
-    public void delete() {
-        addMessage("Success", "Data deleted");
+
+    public void setLazyModel(LazyPersonDataModel lazyModel) {
+        this.lazyModel = lazyModel;
     }
-     
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    public Person getSelectedPerson() {
+        return selectedPerson;
+    }
+
+    public void setSelectedPerson(Person selectedPerson) {
+        this.selectedPerson = selectedPerson;
     }
 }
