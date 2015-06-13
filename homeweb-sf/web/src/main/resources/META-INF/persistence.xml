@@ -27,6 +27,7 @@
             <!-- THIS WILL FREAKING DROP YOUR TABLES! <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory" />
             <!-- <property name="transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" /> -->

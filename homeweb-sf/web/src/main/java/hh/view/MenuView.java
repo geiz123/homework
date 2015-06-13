@@ -1,19 +1,23 @@
 package hh.view;
 
-import java.io.Serializable;
-
 import hh.entity.Person;
 import hh.view.data.LazyPersonDataModel;
+
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.apache.log4j.Logger;
  
 @ManagedBean
 @ViewScoped
 public class MenuView implements Serializable{
     
     private static final long serialVersionUID = 1L;
+    
+    private static final Logger log4jLogger = Logger.getLogger(MenuView.class);
 
     private LazyPersonDataModel lazyModel;
     
@@ -22,6 +26,13 @@ public class MenuView implements Serializable{
     @PostConstruct
     public void init() {
         lazyModel = new LazyPersonDataModel();
+        
+        log4jLogger.info("### #-info -- " + log4jLogger.getLevel());
+        log4jLogger.warn("### #-warn");
+        log4jLogger.debug("### #-debug");
+        log4jLogger.error("### #-error");
+        log4jLogger.fatal("### #-fatal");
+        
     }
     
     public LazyPersonDataModel getLazyModel() {

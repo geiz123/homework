@@ -15,7 +15,7 @@ public class PetPK implements Serializable{
 
     private static final long serialVersionUID = -7287583447872388049L;
 
-    @Column(name = "")
+    @Column(name = "petname")
     private String petName;
     
     @Column(name = "dateofbirth")

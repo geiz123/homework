@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Test PF Lazy DataModel</title>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type"
+            content="text/html; charset=UTF-8" />
+        <meta name="viewport"
+            content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+</h:head>
+
+<h:body>
+    <h:outputStylesheet library="css" name="newcss.css" />
+    <h:form>
+            <p:dataTable var="p" value="#{menuView.lazyModel}"
+                paginator="true" rows="2"
+                paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                rowsPerPageTemplate="2,3,4" selectionMode="single"
+                selection="#{menuView.selectedPerson}" id="sd"
+                lazy="true">
+
+                <!--             <p:ajax event="rowSelect" update=":playerDialogForm" -->
+                <!--                 oncomplete="playerDetails.show()" /> -->
+
+                <p:column sortBy="#{p.firstName}" filterBy="#{p.firstName}" filterMatchMode="contains" headerText="First Name">
+                    <h:outputText value="#{p.firstName}" />
+                </p:column>
+                <p:column sortBy="#{p.lastName}" filterBy="#{p.lastName}" filterMatchMode="contains" headerText="Last Name">
+                    <h:outputText value="#{p.lastName}" />
+                </p:column>
+                <p:column headerText="Pet">
+                    <p:dataTable var="pp" value="#{p.pets}">
+                        <p:column>
+                            <h:outputText value="#{pp.id.petName}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
+    </h:form>
+</h:body>
+</html>
