@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class PetPK implements Serializable{
+public class PetPK implements Serializable {
 
     private static final long serialVersionUID = -7287583447872388049L;
 

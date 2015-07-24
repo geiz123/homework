@@ -57,10 +57,25 @@ public class Person extends BaseIdEntity<Integer> implements Serializable {
     // @CollectionTable(name="pet",
     // joinColumns=@JoinColumn(name="personid"))
 
+    /*
+     * This is a cool solution but not ideal for us right now
+     */
+    // @OneToMany
+    // @JoinColumn(name = "personid",
+    // referencedColumnName = "personid")
+    // @Where(clause = "isDead = 'true'")
+    // List<Pet> pets;
+    /**/
+
     @OneToMany
     @JoinColumn(name = "personid",
                 referencedColumnName = "personid")
     List<Pet> pets;
+
+    @OneToMany
+    @JoinColumn(name = "personid",
+                referencedColumnName = "personid")
+    List<Appointment> appointments;
 
     public Person() {
 
@@ -154,6 +169,14 @@ public class Person extends BaseIdEntity<Integer> implements Serializable {
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
 }

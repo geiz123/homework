@@ -21,6 +21,7 @@
         <class>hh.entity.Address</class>
         <class>hh.entity.Phone</class>
         <class>hh.entity.Pet</class>
+        <class>hh.entity.Appointment</class>
 
         <properties>
             <!-- Properties for Hibernate -->
