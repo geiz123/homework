@@ -4,7 +4,8 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Testing Lazy Load with rowToggler. ! NO OPEN SESSION !</title>
+    <title>Testing Lazy Load with rowToggler. ! NO OPEN SESSION
+        !</title>
     <f:facet name="first">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type"
@@ -39,5 +40,14 @@
             </p:rowExpansion>
         </p:dataTable>
     </h:form>
+
+    <p:dataTable var="person" value="#{view1.everyPerson}">
+        <p:column headerText="Id">
+            <h:outputText value="#{person.id}" />
+        </p:column>
+        <p:column headerText="xxxx">
+            <h:outputText value="#{person.firstName}" />
+        </p:column>
+    </p:dataTable>
 </h:body>
 </html>

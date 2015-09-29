@@ -1,7 +1,9 @@
 package hh.test.mbean;
 
 import hh.bean.Service;
+import hh.controller.PersonController;
 import hh.dao.ServiceDao;
+import hh.entity.Person;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +22,9 @@ public class View1 implements Serializable {
     @ManagedProperty("#{serviceDaoImpl}")
     private ServiceDao serviceDao;
     
+    @ManagedProperty("#{personController}")
+    PersonController personController;
+    
     @PostConstruct
     public void init() {
         System.out.println(View1.class.getName() + ": init() " + this);
@@ -28,6 +33,10 @@ public class View1 implements Serializable {
     public List<Service> getServices(){
         return serviceDao.getAllServices();
     }
+    
+    public List<Person> getEveryPerson() {
+        return personController.getEveryone();
+    }
 
     public ServiceDao getServiceDao() {
         return serviceDao;
@@ -35,5 +44,13 @@ public class View1 implements Serializable {
 
     public void setServiceDao(ServiceDao serviceDao) {
         this.serviceDao = serviceDao;
+    }
+
+    public PersonController getPersonController() {
+        return personController;
+    }
+
+    public void setPersonController(PersonController personController) {
+        this.personController = personController;
     }
 }

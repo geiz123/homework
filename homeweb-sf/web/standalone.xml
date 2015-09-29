@@ -58,8 +58,13 @@
 
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:1.2">
+        <!-- 
+            <console-handler name="CONSOLE"> sets the max logging possible.
+            <logger category="xxxxx"> can set their own log level, but all log
+                level above the max are ignored
+         -->
             <console-handler name="CONSOLE">
-                <level name="DEBUG"/>
+                <level name="ALL"/>
                 <formatter>
                     <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
                 </formatter>
@@ -90,9 +95,12 @@
             <logger category="jacorb.config">
                 <level name="ERROR"/>
             </logger>
-			<logger category="org.hibernate">
-				 <level name="TRACE"/>
-			</logger>
+            <logger category="org.hibernate">
+                <level name="DEBUG"/>
+            </logger>
+            <logger category="hh">
+                <level name="DEBUG"/>
+            </logger>
             <root-logger>
                 <level name="INFO"/>
                 <handlers>

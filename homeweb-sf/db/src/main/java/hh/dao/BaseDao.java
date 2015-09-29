@@ -102,6 +102,10 @@ public class BaseDao<T extends BaseIdEntity<ID>, ID> {
         }
     }
 
+    /**
+     * Get everything!
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
         return em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity").getResultList();
