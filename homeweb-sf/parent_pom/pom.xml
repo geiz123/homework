@@ -26,6 +26,11 @@
             <url>http://central.maven.org/maven2</url>
         </repository>
         <repository>
+            <id>primefacerepo</id>
+            <name>Primeface Repo</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+        <repository>
             <id>localrepo</id>
             <name>Local Repo</name>
             <url>file:////Z:/Maven/repository</url>
@@ -125,13 +130,13 @@
 
             <!-- JSF -->
             <dependency>
-                <groupId>javax.faces</groupId>
+                <groupId>com.sun.faces</groupId>
                 <artifactId>jsf-api</artifactId>
                 <version>2.2.7</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>javax.faces</groupId>
+                <groupId>com.sun.faces</groupId>
                 <artifactId>jsf-impl</artifactId>
                 <version>2.2.7</version>
                 <scope>provided</scope>
