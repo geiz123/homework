@@ -22,21 +22,32 @@
             <p:column style="width:16px">
                 <p:rowToggler />
             </p:column>
-            <p:column headerText="Id">
-                <h:outputText value="#{address.id}" />
+            <p:column headerText="Street Address">
+                <h:outputText value="#{address.street1}" />
             </p:column>
-
+            <p:column headerText="Street Address 2">
+                <h:outputText value="#{address.street2}" />
+            </p:column>
+            
             <p:column headerText="City">
                 <h:outputText value="#{address.city}" />
             </p:column>
 
+            <p:column headerText="State">
+                <h:outputText value="#{address.state}" />
+            </p:column>
+            
+            <p:column headerText="Zipcode">
+                <h:outputText value="#{address.zipCode}" />
+            </p:column>
+            
             <p:rowExpansion>
                 <p:dataTable var="person"
-                    value="#{menuBean.getPersonFromAddId(address.id)}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{person.id}" />
+                    value="#{menuBean.getPersonFromAddId(address.id)}" emptyMessage="No one lives here!">
+                    <p:column headerText="Last Name">
+                        <h:outputText value="#{person.lastName}" />
                     </p:column>
-                    <p:column headerText="f Name">
+                    <p:column headerText="First Name">
                         <h:outputText value="#{person.firstName}" />
                     </p:column>
                 </p:dataTable>

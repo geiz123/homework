@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
     <display-name>web</display-name>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
-    
+
     <!-- Logging -->
     <!-- <context-param> -->
     <!-- <param-name>log4jConfigLocation</param-name> -->
@@ -16,7 +14,7 @@
     <!-- <listener> -->
     <!-- <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> -->
     <!-- </listener> -->
-    
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -25,14 +23,15 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
+
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>bootstrap</param-value>
+        <!-- <param-value>bootstrap</param-value> -->
+        <param-value>afterdark</param-value>
     </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -45,18 +44,9 @@
     </servlet-mapping>
 
     <!-- Filter to open an EntityManager when web needs it -->
-    <!-- 
-    The filter intercepts a servlet request
-    The filter opens an EntityManager and binds it to the current thread
-    Web controller is called
-    Web controller calls service
-    Transaction interceptor begins a new transaction, retrieves the thread-bound EntityManager and binds it to the transaction
-    Service is called, does some stuff with EntityManager, then returns
-    Transaction interceptor flushes the EntityManager then commits the transaction
-    Web controller prepares view, then returns
-    View is built
-    Filter closes the EntityManager and unbinds it from current thread
-     -->
+    <!-- The filter intercepts a servlet request The filter opens an EntityManager and binds it to the current thread Web controller is called Web controller calls service Transaction interceptor begins 
+        a new transaction, retrieves the thread-bound EntityManager and binds it to the transaction Service is called, does some stuff with EntityManager, then returns Transaction interceptor flushes the EntityManager 
+        then commits the transaction Web controller prepares view, then returns View is built Filter closes the EntityManager and unbinds it from current thread -->
     <filter>
         <filter-name>OpenEntityManagerInViewFilter</filter-name>
         <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
