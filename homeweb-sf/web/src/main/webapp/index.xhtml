@@ -62,17 +62,27 @@
                     <h:outputText value="#{address.zipCode}" />
                 </p:column>
                 <p:rowExpansion>
-                    <p:dataTable var="person" value="#{address.persons}">
-                        <p:column headerText="Id">
-                            <h:outputText value="#{person.id}" />
+                    <p:dataTable var="person"
+                        value="#{menuBean.getPersonFromAddId(address.id)}"
+                        emptyMessage="No one lives here!">
+                        <p:column headerText="Last Name">
+                            <h:outputText value="#{person.lastName}" />
                         </p:column>
-                        <p:column headerText="f Name">
+                        <p:column headerText="First Name">
                             <h:outputText value="#{person.firstName}" />
                         </p:column>
-                        <p:column headerText="???">
-                            <h:outputText value="#{person.address.id}" />
-                        </p:column>
                     </p:dataTable>
+                    <!--                     <p:dataTable var="person" value="#{address.persons}"> -->
+                    <!--                         <p:column headerText="Id"> -->
+                    <!--                             <h:outputText value="#{person.id}" /> -->
+                    <!--                         </p:column> -->
+                    <!--                         <p:column headerText="f Name"> -->
+                    <!--                             <h:outputText value="#{person.firstName}" /> -->
+                    <!--                         </p:column> -->
+                    <!--                         <p:column headerText="???"> -->
+                    <!--                             <h:outputText value="#{person.address.id}" /> -->
+                    <!--                         </p:column> -->
+                    <!--                     </p:dataTable> -->
                 </p:rowExpansion>
             </p:dataTable>
         </h:form>
