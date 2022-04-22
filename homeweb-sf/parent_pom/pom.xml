@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <version.org.springframework>4.1.6.RELEASE</version.org.springframework>
+        <version.org.springframework>5.3.19</version.org.springframework>
 
         <version.hh>1.0.0</version.hh>
         <version.hh.db>1.0.0</version.hh.db>
