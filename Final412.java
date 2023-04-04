@@ -146,7 +146,8 @@ public class Final412 {
 			
 			while (true) {
 				if (currentPageIndex == referenceStringArray.length) {
-					// finish simulation, break from loop
+					// finish simulation, print last frame and break from loop
+					printOPTAlgorithym(theGrid, referenceStringArray);
 					break;
 				}
 				
