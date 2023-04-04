@@ -144,14 +144,18 @@ public class Final412 {
 			// keep track of what is currently in the physical frame
 			String[] frameTracker = new String[numberN];
 			
+			String[] pageFaults = new String[referenceStringArray.length];
+			
+			String[] victimPages = new String[referenceStringArray.length];
+			
 			while (true) {
 				if (currentPageIndex == referenceStringArray.length) {
 					// finish simulation, print last frame and break from loop
-					printOPTAlgorithym(theGrid, referenceStringArray);
+					printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
 					break;
 				}
 				
-				printOPTAlgorithym(theGrid, referenceStringArray);
+				printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
 				
 				pressAnyKeyToContinue();
 				
@@ -163,6 +167,13 @@ public class Final412 {
 				if (emptyFrameIndex != -1) {
 					frameTracker[emptyFrameIndex] = page;
 				} else {
+					
+					// check if page already in frame
+					if (isPageInFrame(page, frameTracker)) {
+						// page already in frame so nothing to do but move on to the next page
+						continue;
+					}
+					
 					// no frame were empty or page is not currently in a frame 
 					// so we need to find the victim page using OPT algorithm
 					
@@ -194,7 +205,7 @@ public class Final412 {
 					}// end for
 					
 					// Save the victim page before replacing it
-					String victimPage = frameTracker[frameToReplaceIndex];
+					victimPages[currentPageIndex] = frameTracker[frameToReplaceIndex];
 					
 					// by this point we should know which index of the frame array
 					//  to replace the current page with 
@@ -218,6 +229,21 @@ public class Final412 {
 		} else {
 			System.out.println("Invalid inputs, reference string cannot be null and N must be >= 2 and <=8");
 		}
+	}
+
+	/**
+	 * Loop through the frameTracker array and to see if the current page exist
+	 * @param page
+	 * @param frameTracker
+	 * @return
+	 */
+	private static boolean isPageInFrame(String page, String[] frameTracker) {
+		for (int x = 0; x < frameTracker.length; x++) {
+			if (frameTracker[x].equals(page)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private static int getIndexOfNextOccurance(String page, int startingIndex) {
@@ -258,7 +284,8 @@ public class Final412 {
 	 * @param theGrid
 	 * @param referenceString
 	 */
-	private static void printOPTAlgorithym(String[][] theGrid, String[] referenceStringArray) {
+	private static void printOPTAlgorithym(String[][] theGrid, String[] pageFaults, String[] victimPages, 
+			String[] referenceStringArray) {
 		
 		// Build the reference string text and print it out
 		String referenceRow = "Reference String |";
@@ -288,6 +315,38 @@ public class Final412 {
 			
 			System.out.println(frameString);
 		}
+		
+		// print separator
+		System.out.println(border);
+		
+		// Page faults 17
+		String pageFaultsStr = "Page Faults      | ";
+		for (int x = 0; x < pageFaults.length; x++) {
+			if (pageFaults[x] == null) {
+				pageFaultsStr += "  | ";
+			} else {
+				pageFaultsStr += " " + pageFaults[x] + " |";
+			}
+		}
+		
+		// print the page fault string
+		System.out.println(pageFaultsStr);
+		
+		// print the bottom border
+		System.out.println(border);
+		
+		// Victim Pages 17
+		String victimPagesStr = "Victim Pages   | ";
+		for (int x = 0; x < victimPages.length; x++) {
+			if (victimPages[x] == null) {
+				victimPagesStr += "  | ";
+			} else {
+				victimPagesStr += " " + victimPages[x] + " |";
+			}
+		}
+		
+		// print the page fault string
+		System.out.println(victimPagesStr);
 		
 		// print the bottom border
 		System.out.println(border);
