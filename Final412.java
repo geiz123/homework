@@ -192,10 +192,26 @@ public class Final412 {
 						}
 					}// end for
 					
+					// Save the victim page before replacing it
+					String victimPage = frameTracker[frameToReplaceIndex];
+					
 					// by this point we should know which index of the frame array
 					//  to replace the current page with 
+					frameTracker[frameToReplaceIndex] = page;
+					
 				}
 				
+				// Write the frame to the grid
+				for (int frame = 0; frame < theGrid.length; frame++) {
+					if (frameTracker[frame] == null) {
+						theGrid[frame][currentPageIndex] = " ";
+					} else {
+						theGrid[frame][currentPageIndex] = frameTracker[frame];
+					}
+				}
+				
+				// Move to next page
+				currentPageIndex++;
 				
 			}
 		} else {
@@ -224,7 +240,7 @@ public class Final412 {
 	 */
 	private static int getEmptyFrameOrExistingPageIndex(String[] frameTracker, String page) {
 		for (int x = 0; x < frameTracker.length; x++) {
-			if (frameTracker[x].equals("") || frameTracker[x].equals(page)) {
+			if (frameTracker[x] == null || frameTracker[x].equals("") || frameTracker[x].equals(page)) {
 				return x;
 			}
 		}
