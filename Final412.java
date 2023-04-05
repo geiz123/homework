@@ -2,10 +2,14 @@ import java.util.Scanner;
 
 public class Final412 {
 
-	static int numberN = 0;
-	static String referenceString;
-	static String[] referenceStringArray;
+	static int numberN = 4;
+	static String referenceString = "3 1 6 2 1 3 7 3 2 1 5 4 2 3 7 2 1";
+	static String[] referenceStringArray = referenceString.split(" ");
 
+//	static int numberN = 0;
+//	static String referenceString;
+//	static String[] referenceStringArray;
+	
 	static Scanner inputScanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -161,16 +165,22 @@ public class Final412 {
 				
 				String page = referenceStringArray[currentPageIndex];
 				
-				int emptyFrameIndex = getEmptyFrameOrExistingPageIndex(frameTracker, page);
+				int emptyFrameIndex = getEmptyFrameIndex(frameTracker, page);
 				
 				// find empty frame to put page into
 				if (emptyFrameIndex != -1) {
 					frameTracker[emptyFrameIndex] = page;
+					
+					// save page fault for display
+					pageFaults[currentPageIndex] = page;
 				} else {
 					
 					// check if page already in frame
 					if (isPageInFrame(page, frameTracker)) {
 						// page already in frame so nothing to do but move on to the next page
+						// Move to next page
+						currentPageIndex++;
+						
 						continue;
 					}
 					
@@ -206,6 +216,9 @@ public class Final412 {
 					
 					// Save the victim page before replacing it
 					victimPages[currentPageIndex] = frameTracker[frameToReplaceIndex];
+					
+					// Save the pageFault
+					pageFaults[currentPageIndex] = page;
 					
 					// by this point we should know which index of the frame array
 					//  to replace the current page with 
@@ -260,14 +273,14 @@ public class Final412 {
 	}
 
 	/**
-	 * Look for empty frame or frame that already have the page we are trying to add and return the index of it
+	 * Look for empty frame return the index of it
 	 * @param frameTracker
 	 * @param page
 	 * @return
 	 */
-	private static int getEmptyFrameOrExistingPageIndex(String[] frameTracker, String page) {
+	private static int getEmptyFrameIndex(String[] frameTracker, String page) {
 		for (int x = 0; x < frameTracker.length; x++) {
-			if (frameTracker[x] == null || frameTracker[x].equals("") || frameTracker[x].equals(page)) {
+			if (frameTracker[x] == null || frameTracker[x].equals("")) {
 				return x;
 			}
 		}
@@ -319,13 +332,13 @@ public class Final412 {
 		// print separator
 		System.out.println(border);
 		
-		// Page faults 17
+		// Page faults
 		String pageFaultsStr = "Page Faults      | ";
 		for (int x = 0; x < pageFaults.length; x++) {
 			if (pageFaults[x] == null) {
 				pageFaultsStr += "  | ";
 			} else {
-				pageFaultsStr += " " + pageFaults[x] + " |";
+				pageFaultsStr += pageFaults[x] + " | ";
 			}
 		}
 		
@@ -335,13 +348,13 @@ public class Final412 {
 		// print the bottom border
 		System.out.println(border);
 		
-		// Victim Pages 17
-		String victimPagesStr = "Victim Pages   | ";
+		// Victim Pages
+		String victimPagesStr = "Victim Pages     | ";
 		for (int x = 0; x < victimPages.length; x++) {
 			if (victimPages[x] == null) {
 				victimPagesStr += "  | ";
 			} else {
-				victimPagesStr += " " + victimPages[x] + " |";
+				victimPagesStr += victimPages[x] + " | ";
 			}
 		}
 		
