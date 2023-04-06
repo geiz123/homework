@@ -72,9 +72,9 @@ public class Final412 {
 					}
 				}
 			} else if (option == 3) {
-				simulateOPTAlgorithym();
+				simulateOPTAlgorithm();
 			} else if (option == 4) {
-				System.out.println("You selected " + option);
+				simulateNEWAlgorithm();
 			} else {
 				System.out.println("Invalid option form menu, try again");
 			}
@@ -93,7 +93,6 @@ public class Final412 {
 	 * @return
 	 */
 	public static boolean areAllNumberCorrect() {
-		// TODO: exception can happen if they input like this: 1 2
 		for (String str : referenceStringArray) {
 			if (Integer.valueOf(str) < 0 || Integer.valueOf(str) > 9)
 				return false;
@@ -135,9 +134,150 @@ public class Final412 {
 	}
 
 	/**
-	 * 
+	 * Simulate NEW Algorithm
 	 */
-	public static void simulateOPTAlgorithym() {
+	private static void simulateNEWAlgorithm() {
+		if (referenceStringArray != null && numberN >= 2 && numberN <= 8) {
+			String[][] theGrid = new String[numberN][referenceStringArray.length];
+			fillGridWithOneSpace(theGrid);
+			
+			// track where we are at in the reference string array
+			int currentPageIndex = 0;
+			
+			// keep track of what is currently in the physical frame
+			String[] frameTracker = new String[numberN];
+			
+			String[] pageFaults = new String[referenceStringArray.length];
+			
+			String[] victimPages = new String[referenceStringArray.length];
+			
+			while (true) {
+				if (currentPageIndex == referenceStringArray.length) {
+					// finish simulation, print last frame and break from loop
+					printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+					break;
+				}
+				
+				printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+				
+				pressAnyKeyToContinue();
+				
+				String page = referenceStringArray[currentPageIndex];
+				
+				int emptyFrameIndex = getEmptyFrameIndex(frameTracker, page);
+				
+				// find empty frame to put page into
+				if (emptyFrameIndex != -1) {
+					frameTracker[emptyFrameIndex] = page;
+					
+					// save page fault for display
+					pageFaults[currentPageIndex] = page;
+				} else {
+					// No empty frame so figure out where to put the new page
+					
+					// check if page already in frame
+					if (isPageInFrame(page, frameTracker)) {
+						// page already in frame so nothing to do but move on to the next page
+						// Move to next page
+						currentPageIndex++;
+						
+						continue;
+					}
+					
+					// Page is not currently in a frame 
+					// so we need to find the victim page using NEW algorithm
+					
+					//
+					// find the SECOND least recently used page from the frame in the reference string array
+					//
+					
+					String leastUsed = "";
+					String leastUsed2nd = "";
+					
+					int lastIndex = referenceStringArray.length;
+					
+					// Find the index of the least used page from the string array, starting from where we are at
+					for (int y = 0; y < frameTracker.length; y++) {
+						for (int x = currentPageIndex - 1; x >= 0; x--) {
+							if (frameTracker[y].equals(referenceStringArray[x]) && x < lastIndex) {
+								lastIndex = x;
+							}
+						}
+					}
+					
+					// We now have the last index of the least used page from the referenceStringArray
+					leastUsed = referenceStringArray[lastIndex];
+					
+					// Loop through the string array starting from the last page found from the frame through where we are at.
+					// If the page is the same as the least used then we skip, but break as soon as they are different
+					// because we have found our 2nd least used page.
+					for (int x = lastIndex; x <= currentPageIndex; x++) {
+						if (referenceStringArray[x].equals(leastUsed)) {
+							continue;//ignore
+						} else {
+							
+							// Check if this page is currently in the frame tracker before
+							// accepting it as the 2nd least used page
+							for (int y = 0; y < frameTracker.length; y++) {
+								if (referenceStringArray[x].equals(frameTracker[y])) {
+									leastUsed2nd = referenceStringArray[x];
+									break;
+								}
+							}
+							
+							// Check if 2nd least used page was found so we can stop looking
+							if (!leastUsed2nd.equals("")) {
+								break;
+							}
+						}
+					}
+					
+					// Now find the index of this 2nd least used page from the frameTracker array
+					// so can replace it with a new page
+					int victimIndex = -1;
+					
+					for (int x = 0; x < frameTracker.length; x++) {
+						if (frameTracker[x].equals(leastUsed2nd)) {
+							// found so save it and break
+							victimIndex = x;
+							break;
+						}
+					}
+					
+					// Save the victim page before replacing it
+					victimPages[currentPageIndex] = leastUsed2nd;
+					
+					// Save the pageFault
+					pageFaults[currentPageIndex] = page;
+					
+					// by this point we should know which index of the frame array
+					//  to replace the current page with 
+					frameTracker[victimIndex] = page;
+					
+				}
+				
+				// Write the frame to the grid
+				for (int frame = 0; frame < theGrid.length; frame++) {
+					if (frameTracker[frame] == null) {
+						theGrid[frame][currentPageIndex] = " ";
+					} else {
+						theGrid[frame][currentPageIndex] = frameTracker[frame];
+					}
+				}
+				
+				// Move to next page
+				currentPageIndex++;
+				
+			}
+		} else {
+			System.out.println("Invalid inputs, reference string cannot be null and N must be >= 2 and <=8");
+		}
+	}
+	
+	/**
+	 *  Simulate the OPT Algorithm
+	 */
+	public static void simulateOPTAlgorithm() {
 		if (referenceStringArray != null && numberN >= 2 && numberN <= 8) {
 			String[][] theGrid = new String[numberN][referenceStringArray.length];
 			fillGridWithOneSpace(theGrid);
