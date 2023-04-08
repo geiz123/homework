@@ -2,13 +2,15 @@ import java.util.Scanner;
 
 public class Final412 {
 
-	static int numberN = 4;
-	static String referenceString = "3 1 6 2 1 3 7 3 2 1 5 4 2 3 7 2 1";
-	static String[] referenceStringArray = referenceString.split(" ");
+	// For faster testing
+//	static int numberN = 4;
+//	static String referenceString = "3 1 6 2 1 3 7 3 2 1 5 4 2 3 7 2 1";
+//	static String[] referenceStringArray = referenceString.split(" ");
 
-//	static int numberN = 0;
-//	static String referenceString;
-//	static String[] referenceStringArray;
+	// For real run
+	static int numberN = 0;
+	static String referenceString;
+	static String[] referenceStringArray;
 	
 	static Scanner inputScanner = new Scanner(System.in);
 	
@@ -94,8 +96,12 @@ public class Final412 {
 	 */
 	public static boolean areAllNumberCorrect() {
 		for (String str : referenceStringArray) {
-			if (Integer.valueOf(str) < 0 || Integer.valueOf(str) > 9)
+			try {
+				if (Integer.valueOf(str) < 0 || Integer.valueOf(str) > 9)
+					return false;
+			} catch (Exception e) {
 				return false;
+			}
 		}
 
 		return true;
@@ -135,6 +141,7 @@ public class Final412 {
 
 	/**
 	 * Simulate NEW Algorithm
+	 * TODO Fix the order of empty frame check and stuff like we did in OPT algor
 	 */
 	private static void simulateNEWAlgorithm() {
 		if (referenceStringArray != null && numberN >= 2 && numberN <= 8) {
@@ -154,11 +161,11 @@ public class Final412 {
 			while (true) {
 				if (currentPageIndex == referenceStringArray.length) {
 					// finish simulation, print last frame and break from loop
-					printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+					printAlgorithm(theGrid, pageFaults, victimPages, referenceStringArray);
 					break;
 				}
 				
-				printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+				printAlgorithm(theGrid, pageFaults, victimPages, referenceStringArray);
 				
 				pressAnyKeyToContinue();
 				
@@ -295,35 +302,34 @@ public class Final412 {
 			while (true) {
 				if (currentPageIndex == referenceStringArray.length) {
 					// finish simulation, print last frame and break from loop
-					printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+					printAlgorithm(theGrid, pageFaults, victimPages, referenceStringArray);
 					break;
 				}
 				
-				printOPTAlgorithym(theGrid, pageFaults, victimPages, referenceStringArray);
+				printAlgorithm(theGrid, pageFaults, victimPages, referenceStringArray);
 				
 				pressAnyKeyToContinue();
 				
 				String page = referenceStringArray[currentPageIndex];
 				
+				// find empty frame to put page into
 				int emptyFrameIndex = getEmptyFrameIndex(frameTracker, page);
 				
-				// find empty frame to put page into
-				if (emptyFrameIndex != -1) {
+				if (isPageInFrame(page, frameTracker)) {
+					// page already in frame so nothing to do but move on to the next page
+					// Move to next page
+					currentPageIndex++;
+					
+					continue;
+					
+				} else if (emptyFrameIndex != -1) {
+					// There is an empty frame so put page in there
 					frameTracker[emptyFrameIndex] = page;
 					
 					// save page fault for display
 					pageFaults[currentPageIndex] = page;
+					
 				} else {
-					
-					// check if page already in frame
-					if (isPageInFrame(page, frameTracker)) {
-						// page already in frame so nothing to do but move on to the next page
-						// Move to next page
-						currentPageIndex++;
-						
-						continue;
-					}
-					
 					// no frame were empty or page is not currently in a frame 
 					// so we need to find the victim page using OPT algorithm
 					
@@ -392,6 +398,11 @@ public class Final412 {
 	 */
 	private static boolean isPageInFrame(String page, String[] frameTracker) {
 		for (int x = 0; x < frameTracker.length; x++) {
+			if (frameTracker[x] == null) {
+				// If first frame is null then all other frame is null so we return false immediately
+				return false;
+			}
+				
 			if (frameTracker[x].equals(page)) {
 				return true;
 			}
@@ -433,11 +444,11 @@ public class Final412 {
 	}
 
 	/**
-	 * TODO need page fault and victim page
+	 * Print the table with the reference string, frame, pages fault and victim page
 	 * @param theGrid
 	 * @param referenceString
 	 */
-	private static void printOPTAlgorithym(String[][] theGrid, String[] pageFaults, String[] victimPages, 
+	private static void printAlgorithm(String[][] theGrid, String[] pageFaults, String[] victimPages, 
 			String[] referenceStringArray) {
 		
 		// Build the reference string text and print it out
