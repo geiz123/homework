@@ -173,23 +173,21 @@ public class Final412 {
 				
 				int emptyFrameIndex = getEmptyFrameIndex(frameTracker, page);
 				
-				// find empty frame to put page into
-				if (emptyFrameIndex != -1) {
+				if (isPageInFrame(page, frameTracker)) {
+					// page already in frame so nothing to do but move on to the next page
+					// Move to next page
+					currentPageIndex++;
+					
+					continue;
+					
+				} else if (emptyFrameIndex != -1) {
+					// There is an empty frame so put page in there
 					frameTracker[emptyFrameIndex] = page;
 					
 					// save page fault for display
 					pageFaults[currentPageIndex] = page;
-				} else {
-					// No empty frame so figure out where to put the new page
 					
-					// check if page already in frame
-					if (isPageInFrame(page, frameTracker)) {
-						// page already in frame so nothing to do but move on to the next page
-						// Move to next page
-						currentPageIndex++;
-						
-						continue;
-					}
+				} else {
 					
 					// Page is not currently in a frame 
 					// so we need to find the victim page using NEW algorithm
