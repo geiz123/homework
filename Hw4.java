@@ -3,8 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//https://github.com/friedunit/bankers_algorithm/blob/main/bankers_alg.py
-
 public class Hw4 {
 	static int N;
 	static int M;
