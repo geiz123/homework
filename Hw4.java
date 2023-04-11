@@ -17,10 +17,15 @@ public class Hw4 {
 	static boolean[] finish = null;
 
 	static ArrayList<String> seq = null;
+	
+	static Scanner inputScanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		try {
-			Scanner scanner = new Scanner(new File("input1.txt"));
+			System.out.println("Enter input file name: ");
+			String fileName = inputScanner.nextLine();
+			
+			Scanner scanner = new Scanner(new File(fileName));
 
 			// first line is always N
 			N = Integer.parseInt(scanner.nextLine());
