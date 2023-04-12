@@ -17,15 +17,10 @@ public class Hw4 {
 	static boolean[] finish = null;
 
 	static ArrayList<String> seq = null;
-	
-	static Scanner inputScanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		try {
-			System.out.println("Enter input file name: ");
-			String fileName = inputScanner.nextLine();
-			
-			Scanner scanner = new Scanner(new File(fileName));
+			Scanner scanner = new Scanner(new File("input2.txt"));
 
 			// first line is always N
 			N = Integer.parseInt(scanner.nextLine());
@@ -81,48 +76,30 @@ public class Hw4 {
 
 			initializeStuff();
 
-			boolean notSafe = false;
-
 			while (isFinishAllTrue() == false) {
-				for (int i = 0; i < N; i++) {
-					// Step 2: Find an i, such that Finish[i] == false...
-					if (finish[i] == false) {
+				
+				int i = step2();
+				
+				if (i != -1) {
+					// step 3
 
-						// step 2: ...and Need[i][j] <= Work[j] for all j = 1, 2, ..., M
-						for (int j = 0; j < M; j++) {
-							if (needMatrix[i][j] <= work[j]) {
-								// condition meets requirement so keep looking
-								continue;
-							} else {
-								// on of the condition is no good so stop looking
-								// and set flag
-								notSafe = true;
-								break;
-							}
-						}
+					// +1 to i because it started from zero
+					seq.add("P" + (i + 1));
 
-						if (notSafe) {
-							// reset notSafe and keep looking
-							notSafe = false;
-						} else {
-							// step 3
-
-							// +1 to i because it started from zero
-							seq.add("P" + (i + 1));
-
-							for (int j = 0; j < M; j++) {
-								work[j] = work[j] + allocationMatrix[i][j];
-							}
-
-							finish[i] = true;
-
-							// Step 3: Go to step 2 to check the status of resource availability for another
-							// process
-						}
-					} else {
-						// do nothing, just go to next index and check if it false
+					for (int j = 0; j < M; j++) {
+						work[j] = work[j] + allocationMatrix[i][j];
 					}
-				}// end for
+
+					finish[i] = true;
+
+					// Step 3: Go to step 2 to check the status of resource availability for another
+					// process
+					
+				} else {
+					// Step 2: If such an i does not exist, go to step 4 (finish)
+					// break so we can go to step 4
+					break;
+				}
 			}// end while
 
 			// step 4
@@ -138,6 +115,31 @@ public class Hw4 {
 
 	}
 
+	private static int step2() {
+		boolean pass = true;
+		
+		for (int i = 0; i < finish.length; i++) {
+			if (finish[i] == false) {
+				for (int j = 0; j < work.length; j++) {
+					if (needMatrix[i][j] <= work[j]) {
+						pass = true;
+						continue;
+					} else {
+						pass = false;
+						break;
+					}
+				}
+				
+				// we found an i where: Find an i, such that Finish[i] == false and 
+				// Need[i][j] <= Work[j] for all j = 1, 2, …, M
+				if (pass) {
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
 	/**
 	 * Return true if all index is true else false
 	 * 
