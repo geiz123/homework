@@ -1,3 +1,4 @@
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -54,18 +55,52 @@ public class Hw6 {
 				break;
 			case "4": // Delete file
 				if (workingPath != null) {
-					System.out.println(userInput);
+					System.out.println("Type the name of file to delete:");
+					String fileNameToDelete = inputScanner.nextLine();
+
+					String fullPathToFileName = workingPath.toAbsolutePath().toString() + "/" + fileNameToDelete;
+
+					Path fileToDelete = Path.of(fullPathToFileName);
+
+					if (Files.exists(fileToDelete, LinkOption.NOFOLLOW_LINKS)) {
+						try {
+							Files.delete(fileToDelete);
+						} catch (IOException e) {
+							System.out.println("Something bad happend while deleting the file in option 4.");
+							e.printStackTrace();
+						}
+					} else {
+						System.out.println("The file you selected does not exist! " + fullPathToFileName);
+					}
 				} else {
 					System.out.println("You must select option 1 and enter a valid directory");
 				}
 				break;
 			case "5": // Mirror reflect file (byte level)
 				if (workingPath != null) {
-					System.out.println(userInput);
+					System.out.println("Type the name of file to mirror:");
+					String fileName = inputScanner.nextLine();
+
+					String fullPathToFileName = workingPath.toAbsolutePath().toString() + "/" + fileName;
+
+					Path fileToMirror = Path.of(fullPathToFileName);
+
+					if (Files.exists(fileToMirror, LinkOption.NOFOLLOW_LINKS)) {
+						try {
+							mirrorFile(fileToMirror);
+						} catch (IOException e) {
+							System.out.println("Something bad happend while mirroring the file in option 4.");
+							e.printStackTrace();
+						}
+					} else {
+						System.out.println("The file you selected does not exist! " + fullPathToFileName);
+					}
 				} else {
 					System.out.println("You must select option 1 and enter a valid directory");
 				}
 				break;
+			default:
+				System.out.println("Bad choice, pick from the menu again.");
 			}
 
 			// Done doing work so print menu again and ask for input
@@ -73,6 +108,29 @@ public class Hw6 {
 		}
 
 		inputScanner.close();
+	}
+
+	/**
+	 * Read all bytes from file and write it back, but backward. More concretely,
+	 * let’s denote the bits of a byte as b1b2b3b4b5b6b7b8. After the mirror
+	 * reflection operation, they will be rearranged as b8b7b6b5b4b3b2b1.
+	 * 
+	 * @param fileToMirror
+	 * @throws IOException
+	 */
+	private static void mirrorFile(Path fileToMirror) throws IOException {
+		// read in all the bytes from file
+		byte[] fileData = Files.readAllBytes(fileToMirror);
+
+		// Use try-with-resource to open a file and write to it. This will close the
+		// stream when it finish or fail
+		try (FileOutputStream outStream = new FileOutputStream(fileToMirror.toFile())) {
+			// loop through all the bytes starting at the end of array and write them to
+			// file
+			for (int x = fileData.length - 1; x >= 0; x--) {
+				outStream.write(fileData[x]);
+			}
+		}
 	}
 
 	/**
@@ -97,7 +155,8 @@ public class Hw6 {
 				System.out.println("");
 			}
 
-			// Convert byte to hex (if byte is 10 hex will be 0A because we pad it with zero)
+			// Convert byte to hex (if byte is 10 hex will be 0A because we pad it with
+			// zero)
 			// and print it with a space at the end
 			System.out.print(String.format("%02X ", fileToReadData[x]));
 
