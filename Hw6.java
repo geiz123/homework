@@ -18,31 +18,48 @@ public class Hw6 {
 		while (!userInput.equals("0")) {
 
 			switch (userInput) {
-			case "1":
+			case "1": // Select directory
 				workingPath = getUserInputOfDirectory();
 				break;
-			case "2":
+			case "2": // List directory content
 				if (workingPath != null) {
 					printOutTheContentOfDirectory();
 				} else {
 					System.out.println("You must select option 1 and enter a valid directory");
 				}
 				break;
-			case "3":
+			case "3": // Display file (hexadecimal view)
+				if (workingPath != null) {
+					Path fileToRead = null;
+
+					System.out.println("Type a file name from option 2 and press Enter!");
+					String fileName = inputScanner.nextLine();
+					String fullPathToFileName = workingPath.toAbsolutePath().toString() + "/" + fileName;
+
+					fileToRead = Path.of(fullPathToFileName);
+
+					if (Files.exists(fileToRead, LinkOption.NOFOLLOW_LINKS)) {
+						try {
+							displayFileHexadecimalView(fileToRead);
+						} catch (IOException e) {
+							System.out.println("Something bad happend while reading the file in option 3.");
+							e.printStackTrace();
+						}
+					} else {
+						System.out.println("The file you selected does not exist! " + fullPathToFileName);
+					}
+				} else {
+					System.out.println("You must select option 1 and enter a valid directory");
+				}
+				break;
+			case "4": // Delete file
 				if (workingPath != null) {
 					System.out.println(userInput);
 				} else {
 					System.out.println("You must select option 1 and enter a valid directory");
 				}
 				break;
-			case "4":
-				if (workingPath != null) {
-					System.out.println(userInput);
-				} else {
-					System.out.println("You must select option 1 and enter a valid directory");
-				}
-				break;
-			case "5":
+			case "5": // Mirror reflect file (byte level)
 				if (workingPath != null) {
 					System.out.println(userInput);
 				} else {
@@ -56,6 +73,39 @@ public class Hw6 {
 		}
 
 		inputScanner.close();
+	}
+
+	/**
+	 * Display the file in hex with upper case, 16 bytes per line and starting from
+	 * the last byte ending at first byte
+	 * 
+	 * @param fileToRead
+	 * @throws IOException
+	 */
+	private static void displayFileHexadecimalView(Path fileToRead) throws IOException {
+		byte[] fileToReadData = Files.readAllBytes(fileToRead);
+
+		// use to keep track of how many bytes we have printed to hex
+		int counter = 0;
+
+		// loop starting from last byte
+		for (int x = fileToReadData.length - 1; x >= 0; x--) {
+
+			if (counter == 16) {
+				// reset counter and print newline so we start again
+				counter = 0;
+				System.out.println("");
+			}
+
+			// Convert byte to hex (if byte is 10 hex will be 0A because we pad it with zero)
+			// and print it with a space at the end
+			System.out.print(String.format("%02X ", fileToReadData[x]));
+
+			counter++;
+		}
+
+		// print a new line at the end so when we reprint the menu it will look correct
+		System.out.println("");
 	}
 
 	/**
