@@ -14,7 +14,7 @@
         <version.hh.db>1.0.0</version.hh.db>
 
         <!-- Test -->
-        <junit.version>4.11</junit.version>
+        <junit.version>4.13.1</junit.version>
         <assertj.version>3.0.0</assertj.version>
         <org.testng>6.7</org.testng>
     </properties>
